@@ -13,8 +13,8 @@ public class CardGame{
    int len;
    double points;
    
-   for(int i =1 ;i<=7;i++){
-       String playername = JOptionPane.showInputDialog("Enter Player Name: ");
+   for(int i =1 ;i<=10;i++){
+       String playername = JOptionPane.showInputDialog("\nLEVEL:"+i);
      
        
          if(type == 1){
