@@ -1,4 +1,4 @@
-package GajensI_T_Prac_Term_1;
+package Chapter_1;
 
 import it.*;
 import javax.swing.*;
