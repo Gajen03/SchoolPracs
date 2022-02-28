@@ -9,5 +9,12 @@ package OOP;
  * @author Gajendran
  */
 public class ClientUI {
-    
+
+    public static void main(String[] args) {
+        
+        Client cl = new Client("Gajeni Niadoo", "543654", 6558764.0);
+        System.out.println(cl.changeName()); 
+        System.out.println(cl.toString());
+    }
+
 }
