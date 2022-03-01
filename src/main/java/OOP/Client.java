@@ -20,6 +20,14 @@ public class Client {
         balance = inAmount;
     }
 
+    Client() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    Client(String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void setName(String name) {
         clientname = name;
     }
@@ -45,7 +53,7 @@ public class Client {
     }
     
     public String toString(){
-        return changeName()+", Balance = " + balance + ", Account Number = "+accontNumber;
+        return "Name: "+changeName()+"\nBalance : " + balance + "\nAccount Number : "+accontNumber;
     }
 
 }
