@@ -13,20 +13,15 @@ import javax.swing.JOptionPane;
 public class GenerateEmail {
     public static void main(String[] args) {
         
-        String nameStr = JOptionPane.showInputDialog("Enter Name: ");
-        String name = nameStr.toLowerCase();
-        String nameE = "";
-        String surnameE = "";
-        for(int i = 0;i<name.indexOf(" ");i++){
-            char nameChar = name.charAt(i);
-            nameE += nameChar;
-        }
-        for(int i = 0;i>name.lastIndexOf(" ");i++){
-            char surnameChar = name.charAt(i);
-            surnameE += surnameChar;
-        }    
-        System.out.println(nameE+"."+surnameE+"@reddam.house");    
-
+        String fullname = JOptionPane.showInputDialog("Enter Name: ").toLowerCase();
+        
+        
+        String name = fullname.substring(0, fullname.indexOf(" "));
+        String surname = fullname.substring(fullname.lastIndexOf(" ")+1,fullname.length());
+        String email = name+"."+surname+"@reddam.house";
+           
+        System.out.println(email);    
+        
 
     }
 }
