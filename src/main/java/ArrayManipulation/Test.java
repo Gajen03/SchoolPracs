@@ -14,13 +14,14 @@ import java.util.logging.Logger;
  */
 public class Test {
     public static void main(String[] args) {
-        try{
+        
+        try {
             PersonManager pm = new PersonManager();
-            
             pm.toString();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
         
        

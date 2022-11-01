@@ -18,23 +18,23 @@ import java.util.logging.Logger;
  * @author Gajendran
  */
 public class PersonManager {
-    
+
     private Person[] pArr = new Person[100];
     private int size = 0;
     String filePath = "data\\people.txt";
     File f = new File(filePath);
+
     public PersonManager() throws FileNotFoundException {
-        
-        
+
         Scanner fileScanner = new Scanner(f);
-        
-        while(fileScanner.hasNext()){
+
+        while (fileScanner.hasNext()) {
             String line = fileScanner.nextLine();
             Scanner lineSc = new Scanner(line).useDelimiter("#");
             String name = lineSc.next();
             String surname = lineSc.next();
             int age = lineSc.nextInt();
-            
+
             pArr[size] = new Person(name, surname, age);
             size++;
         }
@@ -43,82 +43,112 @@ public class PersonManager {
     @Override
     public String toString() {
         String output = "";
-        
-        for(int i = 0;i<size;i++){
-            output += pArr[i]+"\n";
+
+        for (int i = 0; i < size; i++) {
+            output += pArr[i] + "\n";
         }
-        
+
         return output;
     }
-    
-    
-    
-    public int search(String person){
-       int lowest = 0;
-       int highest = size - 1;
-       
-       while(lowest<=highest){
-           int mid = (highest-lowest)/2;
-           
-           if (person.compareTo(pArr[mid].getName())>0){
-               lowest = mid + 1;
-           }else if(person.compareTo(pArr[mid].getName())<0){
-               highest = mid - 1;
-           }else{
-               return mid;
-           }
-       }
-       return -1;
-       
+
+    public int search(String person) {
+        int lowest = 0;
+        int highest = size - 1;
+
+        while (lowest <= highest) {
+            int mid = (highest - lowest) / 2;
+
+            if (person.compareTo(pArr[mid].getName()) > 0) {
+                lowest = mid + 1;
+            } else if (person.compareTo(pArr[mid].getName()) < 0) {
+                highest = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
+
     }
-    
-    public void nameSort(){
+
+    public void nameSort() {
         //selection sort
-        for(int sorted = 0;sorted<size-1;sorted++){
-            for(int currentIndex = sorted+1;currentIndex<size;currentIndex++){
-                
-                
-                Person temp = pArr[currentIndex];
-                pArr[currentIndex] = pArr[currentIndex +1];
-                pArr[currentIndex +1] = temp;
+        for (int sorted = 0; sorted < size - 1; sorted++) {
+            for (int currentIndex = sorted + 1; currentIndex < size; currentIndex++) {
+                if (pArr[sorted].getName().compareToIgnoreCase(pArr[currentIndex].getName()) > 0) {
+                    Person temp = pArr[currentIndex];
+                    pArr[currentIndex] = pArr[currentIndex + 1];
+                    pArr[currentIndex + 1] = temp;
+                }
+
             }
         }
     }
-    
-    public void ageSort(){
+
+    public void ageSort() {
         // bubble sort
         for (int sortedIndex = pArr.length - 1; sortedIndex > 0; sortedIndex--) {
             for (int currentIndex = 0; currentIndex < 0; currentIndex++) {
-                
-                Person temp = pArr[currentIndex];
-                pArr[currentIndex]= pArr[currentIndex + 1];
-                pArr[currentIndex + 1] = temp;
+                if (pArr[sortedIndex].getAge() > pArr[currentIndex].getAge()) {
+                 
+                    Person temp = pArr[currentIndex];
+                    pArr[currentIndex] = pArr[currentIndex + 1];
+                    pArr[currentIndex + 1] = temp;
+                }
+
             }
 
         }
-    
+
     }
 
-    public void addPerson(String name,String surname,int age){
+    public void shiftMore(int p) {
+        size++;
+        //for add method
+        for (int i = size; i > p; i--) {
+            pArr[i] = pArr[i - 1];
+            if(size == 0){
+                break;
+            }
+        }
+    }
+
+    public void addPerson(String name, String surname, int age) {
+
         try {
             FileWriter fw = new FileWriter(f);
             PrintWriter pw = new PrintWriter(fw);
-            pw.println(name+"#"+surname+"#"+age+"#");
+
+            int pos = 0;
+            while (pArr[pos].getName().compareToIgnoreCase(name) < 0) {
+                pos++;
+            }
+            shiftMore(pos);
+            pArr[pos] = new Person(name, surname, age);
+            pw.println(name + "#" + surname + "#" + age + "#");
             pw.close();
         } catch (IOException ex) {
             Logger.getLogger(PersonManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void deletePerson(String name) {
-        int index = search(name);
-
+    public void shiftLess(int p) {
+        // for delete
         for (int i = 0; i < size; i++) {
 
             pArr[i] = pArr[i + 1];
-
+            if(i == size){
+                break;
+            }
         }
         size--;
+    }
+
+    public void deletePerson(String name) {
+        int pos = search(name);
+        while (pos != -1) {
+            shiftLess(pos);
+            pos = search(name);
+        }
     }
 
 
