@@ -49,19 +49,73 @@ public class LearnerManager {
 
         }
     }
-    
-    public void sort(){
-        
-        for (int sorted = learnerArr.length-1;sorted>0; sorted--) {
-            for(int currentIndex =0;currentIndex<sorted;currentIndex++ ){
-                Learner learner = learnerArr[currentIndex];
-                double totalCost = learner.calcStudentTotalCost();
-                if(totalCost){
-                    
+
+    public void sort() {
+
+        for (int sorted = learnerArr.length - 1; sorted > 0; sorted--) {
+            for (int currentIndex = 0; currentIndex < sorted; currentIndex++) {
+                Learner learner1 = learnerArr[currentIndex];
+                Learner learner2 = learnerArr[currentIndex + 1];
+
+                if (learner1.calcStudentTotalCost() > learner2.calcStudentTotalCost()) {
+                    Learner temp = learnerArr[currentIndex];
+                    learnerArr[currentIndex] = learnerArr[currentIndex + 1];
+                    learnerArr[currentIndex + 1] = temp;
                 }
             }
-            
+
         }
+    }
+
+    public double getAverageCost() {
+       
+        double totalCost = 0;
+        
+        for (int i = 0; i < learnerArr.length; i++) {
+            totalCost += learnerArr[i].calcStudentTotalCost();
+            i++;
+        }
+        
+        double avg = totalCost / learnerCount;
+        return avg;
+    }
+
+    public double getLowestCost() {
+
+        double lowest = 0;
+
+        for (int i = 0; i < learnerArr.length; i++) {
+            double learner1Cost = learnerArr[i].calcStudentTotalCost();
+            double learner2Cost = learnerArr[i + 1].calcStudentTotalCost();
+            if (learner1Cost < learner2Cost) {
+                lowest = learner1Cost;
+            }
+            i++;
+        }
+        return lowest;
+    }
+
+    public double getHighestCost() {
+        double highest = 0;
+
+        for (int i = 0; i < learnerArr.length; i++) {
+            double learner1Cost = learnerArr[i].calcStudentTotalCost();
+            double learner2Cost = learnerArr[i + 1].calcStudentTotalCost();
+            if (learner1Cost > learner2Cost) {
+                highest = learner1Cost;
+            }
+            i++;
+        }
+        return highest;
+    }
+    
+    public String displaySummary(){
+        return "FINANCIAL STATISTICS\n"
+                + "-------------------------------------"
+                + "NUM LEARNERS: "+learnerCount
+                + "AVERAGE COST: "+getAverageCost()
+                + "LOWEST COST: "+getLowestCost()
+                + "HIGHEST COST: "+getHighestCost();
     }
 
 }
