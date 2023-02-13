@@ -55,8 +55,18 @@ public class CrewMemberManager {
     }
     
     // you were on 6.2 
-    
-     
+        public void processTestResults() throws FileNotFoundException {
+        
+        File f = new File("data\\testResults.txt");
+
+        Scanner sc = new Scanner(f);
+
+        while (sc.hasNext()) {
+            int currentCID = sc.nextInt();
+            int currentScore = sc.nextInt();
+        }
+
+    }
 
 
     public String toString() {
